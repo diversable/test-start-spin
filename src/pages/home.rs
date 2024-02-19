@@ -1,14 +1,6 @@
-// use leptos::{component,
-//              create_resource,
-//              create_server_action,
-//              expect_context,
-//              server,
-//              view,
-//              IntoView,
-//              ServerFnError,
-//              SignalGet};
 use leptos::*;
 use leptos_router::*;
+use server_fn::error::NoCustomError;
 
 /// Renders the home page of your application.
 #[component]
@@ -65,9 +57,10 @@ pub async fn get_count() -> Result<u64, ServerFnError> {
 
     let stored_count: u64 = store
         .get_json("test_start_spin_count")
-        // .map_err(|e| ServerFnError::ServerError::new(e))?
         .map_err(|e| ServerFnError::new(e))?
-        .ok_or_else(|| ServerFnError::ServerError("Failed to get count".to_string()))?;
+        .ok_or_else(|| {
+            ServerFnError::<NoCustomError>::ServerError("Failed to get count".to_string())
+        })?;
 
     println!("Got stored {stored_count}");
 

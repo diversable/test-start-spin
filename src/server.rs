@@ -1,7 +1,6 @@
-use leptos::*;
-use leptos_spin::{render_best_match_to_stream, RouteTable, server_fn::register_explicit};
-use spin_sdk::http::{IncomingRequest, ResponseOutparam};
-use spin_sdk::http_component;
+use leptos_spin::{render_best_match_to_stream, server_fn::register_explicit, RouteTable};
+use spin_sdk::{http::{IncomingRequest, ResponseOutparam},
+               http_component};
 
 #[http_component]
 async fn handle_test_start_spin(req: IncomingRequest, resp_out: ResponseOutparam) {
